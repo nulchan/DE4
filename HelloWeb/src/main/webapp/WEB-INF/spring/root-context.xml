@@ -14,10 +14,19 @@
 	<bean id="dataSource"
         class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
         <property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+        <property name="url" value="jdbc:mysql://localhost:3306/de4"></property>
+        <property name="username" value="manager"></property>
+        <property name="password" value="delab"></property>
+    </bean>
+    <!--
+    <bean id="dataSource"
+        class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="com.mysql.jdbc.Driver"></property>
         <property name="url" value="jdbc:mysql://localhost/DBproject"></property>
         <property name="username" value="DBproject"></property>
         <property name="password" value="delab5715"></property>
     </bean>
+      -->
        
     <bean id="sqlSessionFactory"
         class="org.mybatis.spring.SqlSessionFactoryBean">
