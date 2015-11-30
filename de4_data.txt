@@ -1,0 +1,233 @@
+//수정점 : ORDINARY 테이블 -> DEVELOPER 테이블 -> ORDINARY 테이블, MAIN_LANG 컬럼의 not null 속성 삭제
+//       COLLEAGUE_EVAL, PM_EVAL, CUSTOMER_EVAL 테이블의 EVAL_NUM 컬럼의 auto_increment 속성 삭제, PK로 (EVAL_NUM, PROJECT_NUM, EVAL_EMP, EVALED_EMP)을 갖도록 함
+
+
+create database de4;
+
+grant SELECT, INSERT, UPDATE, DELETE, CREATE, DROP
+ ON de4.*
+ TO 'manager'@'localhost'
+ IDENTIFIED BY 'delab';
+
+create table DEPARTMENT (
+   DEPT_NAME varchar(255) primary key,
+   DEPT_LD varchar(255) not null,
+   TEL varchar(255) not null,
+   DEPT_DATE date not null
+   );
+
+create table EMPLOYEE (
+   EMP_NO int primary key auto_increment,
+   DEPT_NAME varchar(255) not null,
+   ID varchar(255) not null,
+   EMP_NAME varchar(255) not null,
+   INHABIT_NUM bigint(13) not null,
+   PASSWORD varchar(255) not null,
+   ADDRESS varchar(255) not null,
+   JOB_GROUP varchar(255) not null,
+   HIGH_CAR varchar(255) not null,
+   CAREER varchar(255) not null,
+   TECHNIQUE varchar(255) not null,
+   CLASS_POSI varchar(255) not null,
+   FOREIGN KEY (DEPT_NAME) REFERENCES DEPARTMENT (DEPT_NAME) ON UPDATE CASCADE ON DELETE CASCADE
+   );
+
+create table MANAGEMENT (
+   EMP_NO int not null,
+   STAKE int not null,
+   MANAGE_JOB varchar(255) not null,
+   FOREIGN KEY (EMP_NO) REFERENCES EMPLOYEE (EMP_NO) ON UPDATE CASCADE ON DELETE CASCADE
+   );
+
+create table PM (
+   EMP_NO int not null,
+   MANAGE_CAR int not null,
+   FOREIGN KEY (EMP_NO) REFERENCES EMPLOYEE (EMP_NO) ON UPDATE CASCADE ON DELETE CASCADE
+   );
+
+create table ORDINARY (
+   EMP_NO int not null,
+   MAIN_LANG varchar(255),
+   FOREIGN KEY (EMP_NO) REFERENCES EMPLOYEE (EMP_NO) ON UPDATE CASCADE ON DELETE CASCADE
+   );
+
+create table PROJECT (
+   PROJCET_NUM int primary key auto_increment,
+   EMP_NO int not null,
+   PROJECT_NAME varchar(255) not null,
+   PRO_OUTSET date not null,
+   PRO_END date not null,
+   ORDER_PLACE varchar(255) not null,
+   FOREIGN KEY (EMP_NO) REFERENCES EMPLOYEE (EMP_NO) ON UPDATE CASCADE ON DELETE CASCADE
+   );
+
+create table PARTICIPATE (
+   EMP_NO int not null,
+   PROJECT_NUM int not null,
+   DUTY varchar(255) not null,
+   PARTICI_BEG date,
+   PARTICI_END date,
+   PRIMARY KEY (EMP_NO, PROJECT_NUM),
+   FOREIGN KEY (EMP_NO) REFERENCES EMPLOYEE (EMP_NO) ON UPDATE CASCADE ON DELETE CASCADE,
+   FOREIGN KEY (PROJECT_NUM) REFERENCES PROJECT (PROJCET_NUM) ON UPDATE CASCADE ON DELETE CASCADE
+   );
+
+create table EVALUATION (
+   EVAL_NUM int not null auto_increment,
+   PROJECT_NUM int not null,
+   PRIMARY KEY (EVAL_NUM, PROJECT_NUM),
+   FOREIGN KEY (PROJECT_NUM) REFERENCES PROJECT (PROJCET_NUM) ON UPDATE CASCADE ON DELETE CASCADE
+   );
+
+create table COLLEAGUE_EVAL (
+   EVAL_NUM int not null,
+   PROJECT_NUM int not null,
+   EVAL_EMP int not null,
+   EVALED_EMP int not null,
+   COMMUNI int not null,
+   CONTRI int not null,
+   PRIMARY KEY (EVAL_NUM, PROJECT_NUM, EVAL_EMP, EVALED_EMP),
+   FOREIGN KEY (EVAL_NUM) REFERENCES EVALUATION (EVAL_NUM) ON UPDATE CASCADE ON DELETE CASCADE,
+   FOREIGN KEY (PROJECT_NUM) REFERENCES PROJECT (PROJCET_NUM) ON UPDATE CASCADE ON DELETE CASCADE,
+   FOREIGN KEY (EVAL_EMP) REFERENCES EMPLOYEE (EMP_NO) ON UPDATE CASCADE ON DELETE CASCADE,
+   FOREIGN KEY (EVALED_EMP) REFERENCES EMPLOYEE (EMP_NO) ON UPDATE CASCADE ON DELETE CASCADE
+   );
+
+create table PM_EVAL (
+   EVAL_NUM int not null,
+   PROJECT_NUM int not null,
+   EVAL_EMP int not null,
+   EVALED_EMP int not null,
+   DUTY_ABILI int not null,
+   DILIGENCE int not null,
+   PRIMARY KEY (EVAL_NUM, PROJECT_NUM, EVAL_EMP, EVALED_EMP),
+   FOREIGN KEY (EVAL_NUM) REFERENCES EVALUATION (EVAL_NUM) ON UPDATE CASCADE ON DELETE CASCADE,
+   FOREIGN KEY (PROJECT_NUM) REFERENCES PROJECT (PROJCET_NUM) ON UPDATE CASCADE ON DELETE CASCADE,
+   FOREIGN KEY (EVAL_EMP) REFERENCES EMPLOYEE (EMP_NO) ON UPDATE CASCADE ON DELETE CASCADE,
+   FOREIGN KEY (EVALED_EMP) REFERENCES EMPLOYEE (EMP_NO) ON UPDATE CASCADE ON DELETE CASCADE
+   );
+
+create table CUSTOMER_EVAL (
+   EVAL_NUM int not null auto_increment,
+   PROJECT_NUM int not null,
+   EVAL_EMP int not null,
+   EVALED_EMP int not null,
+   SATISFI int not null,
+   KINDNESS int not null,
+   PRIMARY KEY (EVAL_NUM, PROJECT_NUM, EVAL_EMP, EVALED_EMP),
+   FOREIGN KEY (EVAL_NUM) REFERENCES EVALUATION (EVAL_NUM) ON UPDATE CASCADE ON DELETE CASCADE,
+   FOREIGN KEY (PROJECT_NUM) REFERENCES PROJECT (PROJCET_NUM) ON UPDATE CASCADE ON DELETE CASCADE,
+   FOREIGN KEY (EVAL_EMP) REFERENCES EMPLOYEE (EMP_NO) ON UPDATE CASCADE ON DELETE CASCADE,
+   FOREIGN KEY (EVALED_EMP) REFERENCES EMPLOYEE (EMP_NO) ON UPDATE CASCADE ON DELETE CASCADE
+   );
+
+
+
+insert into department values('management','김정태', '02-123-1234', '2004-04-13');
+insert into department values('business','황은설', '02-123-5678', '2004-04-13');
+insert into department values('development','이익현', '02-123-2163', '2004-04-13');
+
+insert into employee (DEPT_NAME, ID, EMP_NAME, INHABIT_NUM, PASSWORD, ADDRESS, JOB_GROUP, HIGH_CAR, CAREER, TECHNIQUE, CLASS_POSI)
+values ('management', 'manage1', '김정태', 6102131152314, 'abc123', '수원시 영통구 11-1', 'management', '대졸', '30years', '인사 관리', '부장');
+
+insert into employee (DEPT_NAME, ID, EMP_NAME, INHABIT_NUM, PASSWORD, ADDRESS, JOB_GROUP, HIGH_CAR, CAREER, TECHNIQUE, CLASS_POSI)
+values ('business', 'busi1', '황은설', 7305172859432, 'def111', '용인시 기흥구 12-3', 'management', '대졸', '13years', '영업 관리', '부장');
+
+insert into employee (DEPT_NAME, ID, EMP_NAME, INHABIT_NUM, PASSWORD, ADDRESS, JOB_GROUP, HIGH_CAR, CAREER, TECHNIQUE, CLASS_POSI)
+values ('development', 'devel1', '이익현', 6710041452132 , 'qwe123', '용인시 처인구 13-4', 'management', '대졸', '27years', '개발 총괄', '부장');
+
+insert into employee (DEPT_NAME, ID, EMP_NAME, INHABIT_NUM, PASSWORD, ADDRESS, JOB_GROUP, HIGH_CAR, CAREER, TECHNIQUE, CLASS_POSI)
+values ('management', 'manage2', '박예진', 7005222843225, 'arw153', '서울특별시 중구 34-1', 'management', '대졸', '15years', '프로젝트 관리', '차장');
+
+insert into employee (DEPT_NAME, ID, EMP_NAME, INHABIT_NUM, PASSWORD, ADDRESS, JOB_GROUP, HIGH_CAR, CAREER, TECHNIQUE, CLASS_POSI)
+values ('business', 'busi2', '허정태', 8004111423115, 'yrete321', '고양시 일산동구 97-1', 'PM', '대졸', '9years', '품질 관리', '과장');
+
+insert into employee (DEPT_NAME, ID, EMP_NAME, INHABIT_NUM, PASSWORD, ADDRESS, JOB_GROUP, HIGH_CAR, CAREER, TECHNIQUE, CLASS_POSI)
+values ('business', 'busi3', '권진서', 8505061324576, 'poi8755', '수원시 권선구 15-3', 'ordinary', '대졸', '7years', '고객 관리', '대리');
+
+insert into employee (DEPT_NAME, ID, EMP_NAME, INHABIT_NUM, PASSWORD, ADDRESS, JOB_GROUP, HIGH_CAR, CAREER, TECHNIQUE, CLASS_POSI)
+values ('development', 'devel2', '정창재', 7111061567829, 'mnb86545', '서울특별시 마포구 53-4', 'PM', '대졸', '11years', 'DBA', '차장');
+
+insert into employee (DEPT_NAME, ID, EMP_NAME, INHABIT_NUM, PASSWORD, ADDRESS, JOB_GROUP, HIGH_CAR, CAREER, TECHNIQUE, CLASS_POSI)
+values ('development', 'devel3', '성태진', 8110311768923, 'asds532', '수원시 영통구 42-5', 'ordinary', '대졸', '7years', '서버 관리', '과장');
+
+insert into employee (DEPT_NAME, ID, EMP_NAME, INHABIT_NUM, PASSWORD, ADDRESS, JOB_GROUP, HIGH_CAR, CAREER, TECHNIQUE, CLASS_POSI)
+values ('development', 'devel4', '전수인', 8412212430213, 'nybt413', '서울특별시 용산구 35-5', 'ordinary', '대졸', '5years', '서버 관리', '대리');
+
+insert into employee (DEPT_NAME, ID, EMP_NAME, INHABIT_NUM, PASSWORD, ADDRESS, JOB_GROUP, HIGH_CAR, CAREER, TECHNIQUE, CLASS_POSI)
+values ('development', 'devel5', '함윤재', 9007041053034, '9754aaa', '수원시 권선구 57-2', 'ordinary', '고졸', '1years', '웹 개발', '사원');
+
+insert into employee (DEPT_NAME, ID, EMP_NAME, INHABIT_NUM, PASSWORD, ADDRESS, JOB_GROUP, HIGH_CAR, CAREER, TECHNIQUE, CLASS_POSI)
+values ('development', 'devel6', '여문성', 8801101506492, 'itrr432', '용인시 기흥구 23-1', 'ordinary', '대졸', '2years', '앱 개발', '사원');
+
+insert into employee (DEPT_NAME, ID, EMP_NAME, INHABIT_NUM, PASSWORD, ADDRESS, JOB_GROUP, HIGH_CAR, CAREER, TECHNIQUE, CLASS_POSI)
+values ('business', 'busi4', '권성연', 8502122857321, 'tea5313', '서울시 동대문구 65-1', 'ordinary', '대졸', '6years', '고객 관리', '대리');
+
+
+insert into management values (1, 10, '경영 총괄');
+insert into management values (2, 9, '영업 총괄');
+insert into management values (3, 8, '개발 총괄');
+insert into management values (4, 2, '인사 관리');
+
+insert into PM values(5, 3);
+insert into PM values(7, 5);
+
+insert into ordinary (EMP_NO) values (6);
+insert into ordinary values(8, 'C');
+insert into ordinary values(9, 'C++');
+insert into ordinary values(10, 'JAVA');
+insert into ordinary values(11, 'C#');
+insert into ordinary (EMP_NO) values (12);
+
+insert into project (EMP_NO, PROJECT_NAME, PRO_OUTSET, PRO_END, ORDER_PLACE) values(5, '홍보 앱 개발', '2013-11-10', '2014-06-11', 'company A');
+insert into project (EMP_NO, PROJECT_NAME, PRO_OUTSET, PRO_END, ORDER_PLACE) values(7, '스마트 워치 앱 개발', '2014-06-01', '2015-10-15', 'company B');
+
+insert into participate values (5, 1, 'PM, 마케팅', '2013-11-10', '2014-06-11');
+insert into participate values (8, 1, '개발', '2013-11-10', '2014-06-11');
+insert into participate values (10, 1, '개발', '2013-11-10', '2014-06-11');
+insert into participate values (11, 1, '개발', '2013-11-10', '2014-05-31');
+insert into participate values (7, 2, 'PM', '2014-06-01', '2015-10-15');
+insert into participate values (6, 2, '마케팅', '2014-06-01', '2015-10-15');
+insert into participate values (9, 2, '개발', '2014-06-01', '2015-10-15');
+insert into participate values (11, 2, '개발', '2014-06-01', '2015-10-15');
+
+insert into evaluation (PROJECT_NUM) values (1);
+insert into evaluation (PROJECT_NUM) values (2);
+
+insert into pm_eval values (1, 1, 5, 8, 8, 7);
+insert into pm_eval values (1, 1, 5, 10, 7, 8);
+insert into pm_eval values (1, 1, 5, 11, 9, 10);
+insert into pm_eval values (2, 2, 7, 6, 10, 9);
+insert into pm_eval values (2, 2, 7, 9, 8, 7);
+insert into pm_eval values (2, 2, 7, 11, 7, 9);
+
+insert into customer_eval values (1, 1, 5, 5, 8, 9);
+insert into customer_eval values (2, 2, 7, 6, 8, 8);
+
+insert into colleague_eval values (1, 1, 5, 8, 8, 8);
+insert into colleague_eval values (1, 1, 5, 10, 9, 7);
+insert into colleague_eval values (1, 1, 5, 11, 8, 6);
+insert into colleague_eval values (1, 1, 8, 5, 6, 7);
+insert into colleague_eval values (1, 1, 8, 10, 7, 7);
+insert into colleague_eval values (1, 1, 8, 11, 8, 9);
+insert into colleague_eval values (1, 1, 10, 5, 9, 9);
+insert into colleague_eval values (1, 1, 10, 8, 8, 8);
+insert into colleague_eval values (1, 1, 10, 11, 5, 7);
+insert into colleague_eval values (1, 1, 11, 5, 8, 8);
+insert into colleague_eval values (1, 1, 11, 8, 9, 7);
+insert into colleague_eval values (1, 1, 11, 10, 7, 7);
+insert into colleague_eval values (2, 2, 7, 6, 8, 8);
+insert into colleague_eval values (2, 2, 7, 9, 7, 7);
+insert into colleague_eval values (2, 2, 7, 11, 8, 9);
+insert into colleague_eval values (2, 2, 6, 7, 8, 9);
+insert into colleague_eval values (2, 2, 6, 9, 7, 6);
+insert into colleague_eval values (2, 2, 6, 11, 7, 7);
+insert into colleague_eval values (2, 2, 9, 7, 9, 10);
+insert into colleague_eval values (2, 2, 9, 6, 9, 9);
+insert into colleague_eval values (2, 2, 9, 11, 7, 7);
+insert into colleague_eval values (2, 2, 11, 7, 8, 8);
+insert into colleague_eval values (2, 2, 11, 6, 9, 7);
+insert into colleague_eval values (2, 2, 11, 9, 7, 9);
+
+
+
