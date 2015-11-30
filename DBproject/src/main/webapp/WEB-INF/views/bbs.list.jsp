@@ -36,5 +36,6 @@
 
   </table>
   <div><a href="./write">쓰기</a></div>
+  <div>(임시) <a href="LoginController/home">로그인 뷰</a><br/></div>
   </body>
 </html>
