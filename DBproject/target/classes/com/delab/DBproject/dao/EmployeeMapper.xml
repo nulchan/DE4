@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.delab.DBproject.dao.EmployeeMapper">
+
+    <resultMap id="employeeMap" type="com.delab.DBproject.dao.EmployeeVo">
+        <id     property="emp_no"    column="emp_no" />
+        <result property="dept_name" column="dept_name" />
+        <result property="id"       column="id" />
+        <result property="emp_name"       column="emp_name" />
+        <result property="inhabit_num"       column="inhabit_num" />
+        <result property="password"       column="password" />
+        <result property="address"       column="address" />
+        <result property="job_group"       column="job_group" />
+        <result property="high_car"       column="high_car" />
+        <result property="career"       column="career" />
+        <result property="technique"       column="technique" />
+        <result property="class_posi"		column="class_posi" />
+    </resultMap>
+
+    <select id="select" resultMap="employeeMap">
+        SELECT  * FROM EMPLOYEE
+    </select>
+
+    <select id="selectOne" resultMap="employeeMap">
+        SELECT  * FROM EMPLOYEE WHERE emp_no = #{emp_no}
+    </select>
+
+    <insert id="insert">
+         INSERT INTO EMPLOYEE ( dept_name, id, emp_name, inhabit_num, password, address, job_group, high_car, career, technique, class_posi ) VALUES (
+                #{dept_name}
+              , #{id}
+              , #{emp_name}
+              , #{inhabit_num}
+              , #{password}
+              , #{address}
+              , #{job_group}
+              , #{high_car}
+              , #{career}
+              , #{technique}
+              , #{class_posi}
+         )
+    </insert>
+
+    <update id="update">
+         UPDATE EMPLOYEE SET
+              emp_name = #{emp_name},
+              password = #{password},
+              technique = #{technique},
+              class_posi = #{class_posi}
+         WHERE emp_no = #{emp_no} LIMIT 1
+    </update>
+
+    <delete id="delete">
+         DELETE FROM EMPLOYEE WHERE emp_no = #{emp_no}
+    </delete>
+
+</mapper>

@@ -23,6 +23,9 @@ public class ViewController {
     // Resource 어노테이션을 이용하여 BbsDao 선언.
     @Resource(name = "bbsDao")
     private BbsDao bbsDao;
+    
+    @Resource(name = "employeeDao")
+    private EmployeeDao employeeDao;
 
     // 게시판 목록
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -35,8 +38,21 @@ public class ViewController {
 
         return "bbs.list";
     }
+    
+    // 직원정보 list
+    @RequestMapping(value = "/employee", method = RequestMethod.GET)
+    public String dispEmployeeList(Model model) {
+        logger.info("display view Employee list");
+        List<EmployeeVo> list = this.employeeDao.getSelect();
+        model.addAttribute("employeelist", list);
 
-    // 게시판 상세보
+        logger.info("totcal count" + list.size() );
+
+        return "employee.list";
+    }
+
+
+    // 게시판 상세보기
     // PathVariable 어노테이션을 이용하여 RESTful 방식 적용
     // bbs/1 -> id = 1; id = 게시물 번호로 인식함.
     // 일반 적으로 (@ReuqstParam(value = "bbsVo", required = false, defaultValue = "0"), int idx, Model model)
