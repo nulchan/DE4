@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.delab.DBproject.dao.LoginMapper">
+
+    <resultMap id="LoginMap" type="com.delab.DBproject.Entity.Employee">
+	    <id     property="emp_no"    column="emp_no" /> <!-- 직원번호 -->
+	    <result property="user_name" column="user_name" />
+	    <result property="subject"       column="subject" />
+	    <result property="content"       column="content" />
+	    <result property="reg_datetime"       column="reg_datetime" />
+		<result property="dept_name" column="dept_name" /> <!--부서명-->
+		<result property="id" column="id" /> <!--직원 아이디-->
+		<result property="emp_name" column="emp_name" /><!--직원이름-->
+		<result property="inhabit_num" column="inhabit_num" /><!--주민번호-->
+			<result property="inhabit1" column="inhabit1" /><!--주민번호 앞자리-->
+			<result property="inhabit2" column="inhabit2" /><!--주민번호 뒷자리-->
+		<result property="password" column="password" /><!--비밀번호-->
+		<result property="address" column="address" /><!--주소-->
+		<result property="job_group" column="job_group" /><!--직군(경영진 PM 일반직원)-->
+		<result property="high_car" column="high_car" /><!--최종학력 (고졸 대졸 대학원졸)-->
+		<result property="career" column="career" /><!--경력-->
+		<result property="technique" column="technique" /><!--경험한 기술-->
+		<result property="class_posi" column="class_posi" /><!--직급(부장 차장 과장 대리 사원)-->
+    </resultMap>
+
+    <select id="select" resultMap="LoginMap">
+        SELECT  * FROM employee
+    </select>
+
+    <select id="selecttemp" resultMap="LoginMap">
+        SELECT  id, password, job_group FROM employee WHERE id = #{id}
+    </select>
+
+</mapper>

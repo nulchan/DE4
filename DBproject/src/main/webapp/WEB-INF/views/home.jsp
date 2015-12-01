@@ -22,7 +22,7 @@
 			</tr>
 			<tr>
 				<td>
-					<input type="submit" value="로그인(미구현)">
+					<input type="submit" value="로그인">
 				</td>
 			</tr>
 		</table>
