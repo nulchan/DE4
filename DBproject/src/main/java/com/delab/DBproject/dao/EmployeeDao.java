@@ -6,12 +6,12 @@ import org.springframework.stereotype.Service;
 
 import com.delab.DBproject.Entity.Employee;
 
-@Service(value = "LoginDao")
-public class LoginDao {
-    @Resource(name = "LoginMapper")
-    private LoginMapper loginMapper;
+@Service(value = "EmployeeDao")
+public class EmployeeDao {
+    @Resource(name = "EmployeeMapper")
+    private EmployeeMapper EmployeeMapper;
 
     public Employee getSelect(String id){
-    	return this.loginMapper.select(id);
+    	return this.EmployeeMapper.select(id);
     }
 }

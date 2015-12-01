@@ -4,7 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import com.delab.DBproject.Entity.Employee;
 
-@Repository(value = "LoginMapper")
-public interface LoginMapper {
+@Repository(value = "EmployeeMapper")
+public interface EmployeeMapper {
     Employee select(String id);
 }

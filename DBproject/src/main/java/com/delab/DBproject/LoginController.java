@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.delab.DBproject.Entity.Employee;
-import com.delab.DBproject.dao.LoginDao;
+import com.delab.DBproject.dao.EmployeeDao;
 
 @Controller
 public class LoginController {
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
-	@Resource(name = "LoginDao")
-    private LoginDao loginDao;
+	@Resource(name = "EmployeeDao")
+    private EmployeeDao employeeDao;
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -37,7 +37,7 @@ public class LoginController {
 		String passwd = request.getParameter("password");
 		if(id == null){id="";}
 		if(passwd == null){passwd="";}
-		Employee object = this.loginDao.getSelect(id);
+		Employee object = this.employeeDao.getSelect(id);
 		if(object != null){//아이디가 있다
 			if(object.getPassword().equals(passwd)){//비밀번호가 맞다면
 				//로그인성공
