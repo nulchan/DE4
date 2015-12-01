@@ -26,5 +26,22 @@
     <select id="select" resultMap="EmployeeMap">
         SELECT  id, password, job_group FROM employee WHERE id = #{id}
     </select>
+    
+    <insert id="insert">
+         INSERT INTO employee (DEPT_NAME, ID, EMP_NAME, INHABIT_NUM, PASSWORD, ADDRESS, JOB_GROUP, HIGH_CAR, CAREER, TECHNIQUE, CLASS_POSI)
+         		 VALUES (
+                #{dept_name}
+              , #{id}
+              , #{emp_name}
+              , #{inhabit_num}
+              , #{password}
+              , #{address}
+              , #{job_group}
+              , #{high_car}
+              , #{career}
+              , #{technique}
+              , #{class_posi}
+         )
+    </insert>
 
 </mapper>

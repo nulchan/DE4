@@ -11,16 +11,11 @@
 	회원가입  
 </h1>
 
-	<form action="${pageContext.request.contextPath }/Sign.do" method="post">	
+	<form action="${pageContext.request.contextPath }/SignController/signup" method="post">	
 		<table>
 			<tr>
 				<td>아이디</td>
-				<td><input type="text" name="id"></td>
-				<td>
-					<input type="hidden" name="dupid" id="dupid" value=""/>
-					<input type="hidden" name="checkid" id="checkid" value="N"/>
-					<button type="button" id="dupbutton">중복확인(미구현)</button>
-				</td>
+				<td>${inputid}<input type="hidden" name="id" value="${inputid}"></td>
 			</tr>
 			<tr>
 				<td>비밀번호</td>
@@ -36,6 +31,17 @@
 				<td>주민등록번호</td>
 				<td><input type="text" name="inhabit1" size="6"> - 
 		<input type="text" name="inhabit2" size="7"></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>부서</td>
+				<td>
+					<select name="dept_name">
+						<option value="management" selected>management
+						<option value="business">business
+						<option value="development">development
+					</select>
+				</td>
 				<td></td>
 			</tr>
 			<tr>
@@ -65,7 +71,7 @@
 				<td></td>
 			</tr>
 			<tr>
-				<td><input type="submit" value="가입하기(미구현)"></td>
+				<td><input type="submit" value="가입하기"></td>
 				<td></td>
 				<td><input type="reset" value="다시입력"></td>
 			</tr>

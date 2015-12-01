@@ -8,7 +8,7 @@
 </head>
 <body>
 <h1>(주)프람트솔루션</h1>
-	<form action="login.do" method="post">	
+	<form action="${pageContext.request.contextPath }/LoginController/login" method="post">	
 		<table>
 			<tr>
 				<td>

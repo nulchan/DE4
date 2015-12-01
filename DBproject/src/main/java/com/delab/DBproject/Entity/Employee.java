@@ -5,7 +5,7 @@ public class Employee {
 	private String dept_name; //부서명
 	private String id; //직원 아이디
 	private String emp_name; //직원이름
-	private int inhabit_num; //주민번호
+	private long inhabit_num; //주민번호
 	//임시
 		private int inhabit1; //주민번호 앞자리
 		public int getInhabit1() {return inhabit1;}
@@ -35,8 +35,8 @@ public class Employee {
 	public String getEmp_name() {return emp_name;}
 	public void setEmp_name(String emp_name) {this.emp_name = emp_name;}
 	
-	public int getInhabit_num() {return inhabit_num;}
-	public void setInhabit_num(int inhabit_num) {this.inhabit_num = inhabit_num;}
+	public long getInhabit_num() {return inhabit_num;}
+	public void setInhabit_num(long inhabit_num) {this.inhabit_num = inhabit_num;}
 	
 	public String getPassword() {return password;}
 	public void setPassword(String password) {this.password = password;}

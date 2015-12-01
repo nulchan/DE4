@@ -65,7 +65,7 @@ public class LoginController {
 	//회원가입
 	@RequestMapping(value = "/LoginController/Sign", method = RequestMethod.GET)
 	public String Join(Locale locale, Model model) {
-		return "sign";
+		return "checkId";
 	}
 	
 	

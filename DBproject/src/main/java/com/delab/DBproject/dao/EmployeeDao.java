@@ -14,4 +14,8 @@ public class EmployeeDao {
     public Employee getSelect(String id){
     	return this.EmployeeMapper.select(id);
     }
+    
+    public void insert(Employee employee) {
+        this.EmployeeMapper.insert(employee);
+   }
 }
