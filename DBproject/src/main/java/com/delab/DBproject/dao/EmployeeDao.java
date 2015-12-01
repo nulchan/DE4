@@ -10,12 +10,20 @@ public class EmployeeDao {
     @Resource(name = "employeeMapper")
     private EmployeeMapper employeeMapper;
 
+    public EmployeeVo getSelectId(String id) {
+    	return this.employeeMapper.selectId(id);
+    }
+    
+    public EmployeeVo getSelectPassword(String password) {
+    	return this.employeeMapper.selectId(password);
+    }
+    
     public List<EmployeeVo> getSelect() {
         return this.employeeMapper.select();
     }
 
-    public BbsVo getSelectOne(int idx) {
-        return this.employeeMapper.selectOne(idx);
+    public EmployeeVo getSelectOne(int emp_no) {
+        return this.employeeMapper.selectOne(emp_no);
     }
 
     public void insert(EmployeeVo employeeVo) {

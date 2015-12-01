@@ -24,6 +24,14 @@
     <select id="selectOne" resultMap="employeeMap">
         SELECT  * FROM EMPLOYEE WHERE emp_no = #{emp_no}
     </select>
+    
+    <select id="selectId" resultMap="employeeMap">
+    	SELECT * FROM EMPLOYEE WHERE id = #{id}
+    </select>
+    
+    <select id="selectPassword" resultMap="employeeMap">
+    	SELECT * FROM EMPLOYEE WHERE password = #{password}
+    </select>
 
     <insert id="insert">
          INSERT INTO EMPLOYEE ( dept_name, id, emp_name, inhabit_num, password, address, job_group, high_car, career, technique, class_posi ) VALUES (

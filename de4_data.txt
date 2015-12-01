@@ -21,7 +21,7 @@ create table EMPLOYEE (
    DEPT_NAME varchar(255) not null,
    ID varchar(255) not null,
    EMP_NAME varchar(255) not null,
-   INHABIT_NUM bigint(13) not null,
+   INHABIT_NUM(13) not null,
    PASSWORD varchar(255) not null,
    ADDRESS varchar(255) not null,
    JOB_GROUP varchar(255) not null,

@@ -26,9 +26,18 @@ public class ViewController {
     
     @Resource(name = "employeeDao")
     private EmployeeDao employeeDao;
-
-    // 게시판 목록
+    
+    
     @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String home(Model model) {
+    		
+    	return "main";
+    }
+    
+   
+
+   /* // 게시판 목록
+    @RequestMapping(value = "/bbs", method = RequestMethod.GET)
     public String dispBbsList(Model model) {
         logger.info("display view BBS list");
         List<BbsVo> list = this.bbsDao.getSelect();
@@ -38,9 +47,10 @@ public class ViewController {
 
         return "bbs.list";
     }
+    */
     
     // 직원정보 list
-    @RequestMapping(value = "/employee", method = RequestMethod.GET)
+    @RequestMapping(value = "/employeelist", method = RequestMethod.GET)
     public String dispEmployeeList(Model model) {
         logger.info("display view Employee list");
         List<EmployeeVo> list = this.employeeDao.getSelect();
@@ -50,22 +60,48 @@ public class ViewController {
 
         return "employee.list";
     }
-
-
-    // 게시판 상세보기
-    // PathVariable 어노테이션을 이용하여 RESTful 방식 적용
-    // bbs/1 -> id = 1; id = 게시물 번호로 인식함.
-    // 일반 적으로 (@ReuqstParam(value = "bbsVo", required = false, defaultValue = "0"), int idx, Model model)
-    @RequestMapping("/{idx}")
-    public String dispBbsView(@PathVariable int idx, Model model) {
-        logger.info("display view BBS view idx = {}", idx);
-        BbsVo object = this.bbsDao.getSelectOne(idx);
+    
+    //직원정보 상세보기
+  /*  @RequestMapping("/{emp_no}")
+    public String dispEmployeeView(@PathVariable int emp_no, Model model) {
+        logger.info("display view Employee view emp_no = {}", emp_no);
+        EmployeeVo object = this.employeeDao.getSelectOne(emp_no);
 
         model.addAttribute("object", object);
-        return "bbs.view";
+        return "employee.view";
+    }*/
+    
+    //관리자로그인
+    @RequestMapping("/main/login/management/{id}")
+    public String dispManagementLoginView(@PathVariable String id, Model model) {
+        logger.info("display view Login management view id = {}", id);
+        EmployeeVo object = this.employeeDao.getSelectId(id);
+
+        model.addAttribute("object", object);
+        return "management.view";
+    }
+    
+    //PM로그인
+    @RequestMapping("/main/login/PM/{id}")
+    public String dispPMLoginView(@PathVariable String id, Model model) {
+        logger.info("display view Login PM view id = {}", id);
+        EmployeeVo object = this.employeeDao.getSelectId(id);
+
+        model.addAttribute("object", object);
+        return "pm.view";
+    }
+    
+  //ordinary로그인
+    @RequestMapping("/main/login/ordinary/{id}")
+    public String dispOrdinaryLoginView(@PathVariable String id, Model model) {
+        logger.info("display view Login ordinary view id = {}", id);
+        EmployeeVo object = this.employeeDao.getSelectId(id);
+
+        model.addAttribute("object", object);
+        return "ordinary.view";
     }
 
-    // 게시판 쓰기
+    /*// 게시판 쓰기
     @RequestMapping(value = "/write", method = RequestMethod.GET)
     public String dispBbsWrite(@RequestParam(value="idx", defaultValue="0") int idx, Model model) {
         logger.info("display view BBS write");
@@ -77,8 +113,9 @@ public class ViewController {
 
         return "bbs.write";
     }
+    */
 
-    @RequestMapping(value = "/write_ok", method = RequestMethod.POST)
+  /*  @RequestMapping(value = "/write_ok", method = RequestMethod.POST)
     public String procBbsWrite(@ModelAttribute("bbsVo") BbsVo bbsVo, RedirectAttributes redirectAttributes) {
         Integer idx = bbsVo.getIdx();
 
@@ -91,11 +128,35 @@ public class ViewController {
             redirectAttributes.addFlashAttribute("message", "수정되었습니다.");
             return "redirect:/write?idx=" + idx;
         }
-    }
+    }*/
+    
+    @RequestMapping(value = "/write_ok", method = RequestMethod.POST)
+    public String procEmployeeWrite(@ModelAttribute("employeeVo") EmployeeVo employeeVo, RedirectAttributes redirectAttributes) {
+        Integer emp_no = employeeVo.getEmp_no();
 
+        if (emp_no == null || emp_no == 0) {
+            this.employeeDao.insert(employeeVo);
+            redirectAttributes.addFlashAttribute("message", "추가되었습니다.");
+            return "redirect:/js";
+        } else {
+            this.employeeDao.update(employeeVo);
+            redirectAttributes.addFlashAttribute("message", "수정되었습니다.");
+            return "redirect:/write?emp_no=" + emp_no;
+        }
+    }
+/*
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public String procBbsDelete(@RequestParam(value = "idx", required = false) int idx) {
         this.bbsDao.delete(idx);
+        return "redirect:/";
+    }
+    
+    */
+    
+    //직원 탈퇴시키기
+    @RequestMapping(value = "/deleteemployee", method = RequestMethod.POST)
+    public String procEmployeeDelete(@RequestParam(value = "emp_no", required = false) int emp_no) {
+        this.employeeDao.delete(emp_no);
         return "redirect:/";
     }
 

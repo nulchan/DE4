@@ -7,7 +7,9 @@ import org.springframework.stereotype.Repository;
 public interface EmployeeMapper {
     List<EmployeeVo> select();
 
-    BbsVo selectOne(int emp_no);
+    EmployeeVo selectOne(int emp_no);
+    EmployeeVo selectId(String id);
+    EmployeeVo selectPassword(String password);
     void insert(EmployeeVo employeeVo);
     void update(EmployeeVo employeeVo);
     void delete(int emp_no);

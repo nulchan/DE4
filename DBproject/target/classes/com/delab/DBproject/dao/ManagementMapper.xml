@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.delab.DBproject.dao.ManagementMapper">
+
+    <resultMap id="managementMap" type="com.delab.DBproject.dao.ManagementVo">
+        <id     property="emp_no"    column="emp_no" />
+        <result property="stake" column="stake" />
+        <result property="manage_job"       column="manage_job" />
+    </resultMap>
+
+    <select id="select" resultMap="managementMap">
+        SELECT  * FROM MANAGEMENT
+    </select>
+
+    <insert id="insert">
+         INSERT INTO MANAGEMENT ( emp_no, stake, manage_job) VALUES (
+                #{emp_no}
+              , #{stake}
+              , #{manage_job}
+         )
+    </insert>
+
+    <update id="update">
+         UPDATE MANAGEMENT SET
+              emp_no = #{emp_no},
+              stake = #{stake},
+              manage_job = #{manage_job}
+         WHERE emp_no = #{emp_no} LIMIT 1
+    </update>
+
+    <delete id="delete">
+         DELETE FROM MANAGEMENT WHERE emp_no = #{emp_no}
+    </delete>
+
+</mapper>

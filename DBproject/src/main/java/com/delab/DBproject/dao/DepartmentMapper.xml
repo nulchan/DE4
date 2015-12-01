@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.delab.DBproject.dao.DepartmentMapper">
+
+    <resultMap id="departmentMap" type="com.delab.DBproject.dao.DepartmentVo">
+        <id     property="dept_name"    column="dept_name" />
+        <result property="dept_ld" column="dept_ld" />
+        <result property="tel"       column="tel" />
+        <result property="dept_date"       column="dept_date" />
+    </resultMap>
+
+    <select id="select" resultMap="departmentMap">
+        SELECT  * FROM DEPARTMENT
+    </select>
+
+    <select id="selectOne" resultMap="departmentMap">
+        SELECT  * FROM EMPLOYEE WHERE dept_name = #{dept_name}
+    </select>
+
+    <insert id="insert">
+         INSERT INTO DEPARTMENT ( dept_name, dept_ld, tel, dept_date) VALUES (
+                #{dept_name}
+              , #{dept_ld}
+              , #{tel}
+              , #{dept_date}
+         )
+    </insert>
+
+    <update id="update">
+         UPDATE DEPARTMENT SET
+              dept_name = #{dept_name},
+              dept_ld = #{dept_ld},
+              tel = #{tel},
+              dept_date = #{dept_date}
+         WHERE dept_name = #{dept_name} LIMIT 1
+    </update>
+
+    <delete id="delete">
+         DELETE FROM DEPARTMENT WHERE dept_name = #{dept_name}
+    </delete>
+
+</mapper>

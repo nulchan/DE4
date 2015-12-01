@@ -7,6 +7,7 @@
     <title>직원 list</title>
   </head>
   <body>
+  
   <h1>${message}</h1>
   <h1>직원 list</h1>
   <table border="1">
@@ -34,10 +35,10 @@
     <!-- 목록이 반복될 영역 -->
     <c:forEach var="item" items="${employeelist}" varStatus="status">
     <tr>
-      <td><a href="./${item.emp_no}">${item.emp_no}</a></td>
+      <td>${item.emp_no}</td>
       <td>${item.dept_name}</td>
       <td>${item.id}</td>
-      <td>${item.emp_name}</td>
+      <td><a href="./${item.emp_no}">${item.emp_name}</a></td>
       <td>${item.inhabit_num}</td>
       <td>${item.password}</td>
       <td>${item.address}</td>

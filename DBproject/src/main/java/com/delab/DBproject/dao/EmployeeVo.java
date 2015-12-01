@@ -1,12 +1,14 @@
 package com.delab.DBproject.dao;
 
+import java.math.BigInteger;
+
 public class EmployeeVo {
 	
 	public int emp_no;
 	public String dept_name;
 	public String id;
 	public String emp_name;
-	public String inhabit_num;
+	public BigInteger inhabit_num;
 	public String password;
 	public String address;
 	public String job_group;
@@ -38,10 +40,10 @@ public class EmployeeVo {
 	public void setEmp_name(String emp_name) {
 		this.emp_name = emp_name;
 	}
-	public String getInhabit_num() {
+	public BigInteger getInhabit_num() {
 		return inhabit_num;
 	}
-	public void setInhabit_num(String inhabit_num) {
+	public void setInhabit_num(BigInteger inhabit_num) {
 		this.inhabit_num = inhabit_num;
 	}
 	public String getPassword() {
