@@ -59,62 +59,38 @@
 						<div id="carousel-example-generic" class="carousel slide"
 							data-ride="carousel">
   <h1>${message}</h1>
-  <form id="form" method="post" action="./write_ok">
+  <h1>PM Evaluation list</h1>
   <table border="1">
-  	<tr>
-		  <td>직원번호</td>
-		  <td><input type="text" id="emp_no" name="emp_no" value="${object.emp_no}" /></td>
-	</tr>
-	<tr>
-		  <td>부서</td>
-		  <td><input type="text" id="dept_name" name="dept_name" value="${object.dept_name}" /></td>
-	</tr>
-	<tr>
-		  <td>id</td>
-		  <td><input type="text" id="id" name="id" value="${object.id}" /></td>
-	</tr>
-	<tr>
-		  <td>이름</td>
-		  <td><input type="text" id="emp_name" name="emp_name" value="${object.emp_name}" /></td>
-	</tr>
-	<tr>
-		  <td>주민번호</td>
-		  <td><input type="text" id="inhabit_num" name="inhabit_num" value="${object.inhabit_num}" /></td>
-	</tr>
-	<tr>
-		  <td>password</td>
-		  <td><input type="text" id="password" name="password" value="${object.password}" /></td>
-	</tr>
-	<tr>
-		  <td>주소</td>
-		  <td><input type="text" id="address" name="address" value="${object.address}" /></td>
-	</tr>
-	<tr>
-		  <td>권한</td>
-		  <td><input type="text" id="job_group" name="job_group" value="${object.job_group}" /></td>
-	</tr>
-	<tr>
-		  <td>최종학력</td>
-		  <td><input type="text" id="high_car" name="high_car" value="${object.high_car}" /></td>
-	</tr>
-	<tr>
-		  <td>경력</td>
-		  <td><input type="text" id="career" name="career" value="${object.career}" /></td>
-	</tr>
-	<tr>
-		  <td>경험기술</td>
-		  <td><input type="text" id="technique" name="technique" value="${object.technique}" /></td>
-	</tr>
-	<tr>
-		  <td>직급</td>
-		  <td><input type="text" id="class_posi" name="class_posi" value="${object.class_posi}" /></td>
-	</tr>
-</table>
-	  <div>
-		  <input type="submit" value="save" />
-		  <a href="./">목록</a>
-	  </div>
-  </form>
+    <colgroup>
+  <col width="60"><col><col width="115"><col width="85">
+  </colgroup>
+  <thead>
+    <tr>
+      <th scope="col">평가번호</th>
+      <th scope="col">프로젝트번호</th>
+      <th scope="col">평가자</th>
+      <th scope="col">피평가자</th>
+      <th scope="col">업무능력점수</th>
+      <th scope="col">근면성점수</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <!-- 목록이 반복될 영역 -->
+    <c:forEach var="item" items="${list}" varStatus="status">
+    <tr>
+      <td>${item.eval_num}</td>
+      <td><a href="./${item.project_num}">${item.project_num}</a></td>
+      <td>${item.eval_emp}</td>
+      <td>${item.evaled_emp}</td>
+      <td>${item.duty_abili}</td>
+      <td>${item.diligence}</td>
+    </tr>
+    </c:forEach>
+
+    </tbody>
+
+  </table>
   </div>
 	  </div>
 	  </div>

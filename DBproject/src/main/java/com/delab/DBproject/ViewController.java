@@ -27,11 +27,32 @@ public class ViewController {
     @Resource(name = "employeeDao")
     private EmployeeDao employeeDao;
     
+    @Resource(name = "projectDao")
+    private ProjectDao projectDao;
+    
+    @Resource(name = "colleagueEvalDao")
+    private ColleagueEvalDao colleagueEvalDao;
+    
+    @Resource(name = "pmEvalDao")
+    private PMEvalDao pmEvalDao;
+    
+    @Resource(name = "customerEvalDao")
+    private CustomerEvalDao customerEvalDao;
+    
+    @Resource(name = "participateDao")
+    private ParticipateDao participateDao;
+    
     
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home(Model model) {
     		
     	return "main";
+    }
+    
+    @RequestMapping(value = "/sign", method = RequestMethod.GET)
+    public String sign(Model model) {
+    		
+    	return "sign";
     }
     
    
@@ -49,8 +70,56 @@ public class ViewController {
     }
     */
     
+    //project list
+    @RequestMapping(value = "main/login/management/projectlist", method = RequestMethod.GET)
+    public String dispProjectList(Model model) {
+        logger.info("display view Project list");
+        List<ProjectVo> list = this.projectDao.getSelect();
+        model.addAttribute("list", list);
+
+        logger.info("totcal count" + list.size() );
+
+        return "project.list";
+    }
+    
+  //colleagueEval list
+    @RequestMapping(value = "main/login/management/colleagueEvallist", method = RequestMethod.GET)
+    public String dispColleagueEvalList(Model model) {
+        logger.info("display view colleagueEval list");
+        List<ColleagueEvalVo> list = this.colleagueEvalDao.getSelect();
+        model.addAttribute("list", list);
+
+        logger.info("totcal count" + list.size() );
+
+        return "colleagueEval.list";
+    }
+    
+  //pmEval list
+    @RequestMapping(value = "main/login/management/pmEvallist", method = RequestMethod.GET)
+    public String dispPMEvalList(Model model) {
+        logger.info("display view pmEval list");
+        List<PMEvalVo> list = this.pmEvalDao.getSelect();
+        model.addAttribute("list", list);
+
+        logger.info("totcal count" + list.size() );
+
+        return "pmEval.list";
+    }
+    
+  //customerEval list
+    @RequestMapping(value = "main/login/management/customerEvallist", method = RequestMethod.GET)
+    public String dispCustomerEvalList(Model model) {
+        logger.info("display view customerEval list");
+        List<CustomerEvalVo> list = this.customerEvalDao.getSelect();
+        model.addAttribute("list", list);
+
+        logger.info("totcal count" + list.size() );
+
+        return "customerEval.list";
+    }
+    
     // 직원정보 list
-    @RequestMapping(value = "/employeelist", method = RequestMethod.GET)
+    @RequestMapping(value = "/main/login/management/employeelist", method = RequestMethod.GET)
     public String dispEmployeeList(Model model) {
         logger.info("display view Employee list");
         List<EmployeeVo> list = this.employeeDao.getSelect();
@@ -62,14 +131,24 @@ public class ViewController {
     }
     
     //직원정보 상세보기
-  /*  @RequestMapping("/{emp_no}")
+    @RequestMapping("/main/login/{emp_no}")
     public String dispEmployeeView(@PathVariable int emp_no, Model model) {
         logger.info("display view Employee view emp_no = {}", emp_no);
         EmployeeVo object = this.employeeDao.getSelectOne(emp_no);
 
         model.addAttribute("object", object);
         return "employee.view";
-    }*/
+    }
+    
+  //프로젝트 참여정보보기
+    @RequestMapping("/main/login/management/projectlist/{project_num}")
+    public String dispParticipateView(@PathVariable int project_num, Model model) {
+        logger.info("display view participate view project_num = {}", project_num);
+        ParticipateVo object = this.participateDao.getSelectOne(project_num);
+
+        model.addAttribute("object", object);
+        return "participate.list.view";
+    }
     
     //관리자로그인
     @RequestMapping("/main/login/management/{id}")
@@ -101,19 +180,19 @@ public class ViewController {
         return "ordinary.view";
     }
 
-    /*// 게시판 쓰기
-    @RequestMapping(value = "/write", method = RequestMethod.GET)
-    public String dispBbsWrite(@RequestParam(value="idx", defaultValue="0") int idx, Model model) {
+    // 게시판 쓰기
+    @RequestMapping(value = "/main/login/management/write", method = RequestMethod.GET)
+    public String dispBbsWrite(@RequestParam(value="emp_no", defaultValue="0") int emp_no, Model model) {
         logger.info("display view BBS write");
 
-        if (idx > 0) {
-            BbsVo object = this.bbsDao.getSelectOne(idx);
+        if (emp_no > 0) {
+            EmployeeVo object = this.employeeDao.getSelectOne(emp_no);
             model.addAttribute("object", object);
         }
 
-        return "bbs.write";
+        return "employee.write";
     }
-    */
+    
 
   /*  @RequestMapping(value = "/write_ok", method = RequestMethod.POST)
     public String procBbsWrite(@ModelAttribute("bbsVo") BbsVo bbsVo, RedirectAttributes redirectAttributes) {
@@ -130,19 +209,25 @@ public class ViewController {
         }
     }*/
     
-    @RequestMapping(value = "/write_ok", method = RequestMethod.POST)
+    @RequestMapping(value = "/main/login/management/write_ok", method = RequestMethod.POST)
     public String procEmployeeWrite(@ModelAttribute("employeeVo") EmployeeVo employeeVo, RedirectAttributes redirectAttributes) {
-        Integer emp_no = employeeVo.getEmp_no();
+        int emp_no = employeeVo.getEmp_no();
 
-        if (emp_no == null || emp_no == 0) {
-            this.employeeDao.insert(employeeVo);
-            redirectAttributes.addFlashAttribute("message", "추가되었습니다.");
-            return "redirect:/js";
-        } else {
             this.employeeDao.update(employeeVo);
             redirectAttributes.addFlashAttribute("message", "수정되었습니다.");
-            return "redirect:/write?emp_no=" + emp_no;
-        }
+            
+            return "redirect:/main/login/management/write?emp_no=" + emp_no;
+    }
+    
+    @RequestMapping(value = "/main/login/management/projectlist/write_ok", method = RequestMethod.POST)
+    public String procProjectWrite(@ModelAttribute("projectVo") ProjectVo projectVo, RedirectAttributes redirectAttributes) {
+        
+    	int emp_no = projectVo.getEmp_no();
+
+            this.projectDao.insert(projectVo);
+            redirectAttributes.addFlashAttribute("message", "수정되었습니다.");
+            
+            return "redirect:/main/login/management/projectlist?emp_no=" + emp_no;
     }
 /*
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
@@ -154,10 +239,10 @@ public class ViewController {
     */
     
     //직원 탈퇴시키기
-    @RequestMapping(value = "/deleteemployee", method = RequestMethod.POST)
+    @RequestMapping(value = "/main/login/deleteemployee", method = RequestMethod.POST)
     public String procEmployeeDelete(@RequestParam(value = "emp_no", required = false) int emp_no) {
         this.employeeDao.delete(emp_no);
-        return "redirect:/";
+        return "redirect:/main/login/management/employeelist";
     }
 
 }

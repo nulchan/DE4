@@ -25,7 +25,7 @@
 					<span class="icon-bar"></span> <span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#"><b>Prompt Solution 4조</b></a>
+				<a class="navbar-brand" href="./"><b>Prompt Solution 4조</b></a>
 			</div>
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse"
@@ -44,13 +44,9 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-3">
-				<p class="lead">Prompt Solution (${result})</p>
+				<p class="lead">Prompt Solution (회원가입)</p>
 				<div class="list-group">
-					<a href="../management/customerEvallist" class="list-group-item">고객평가조회</a>
-					<a href="../management/pmEvallist" class="list-group-item">PM평가조회</a>
-					<a href="../management/colleagueEvallist" class="list-group-item">동료평가조회</a>
-					<a href="../management/employeelist"	class="list-group-item">직원조회</a>
-					<a href="../management/projectlist"	class="list-group-item">프로젝트조회</a>
+					
 				</div>
 			</div>
 		<div class="col-md-9">
@@ -58,64 +54,89 @@
 					<div class="col-md-12">
 						<div id="carousel-example-generic" class="carousel slide"
 							data-ride="carousel">
-  <h1>${message}</h1>
-  <form id="form" method="post" action="./write_ok">
-  <table border="1">
-  	<tr>
-		  <td>직원번호</td>
-		  <td><input type="text" id="emp_no" name="emp_no" value="${object.emp_no}" /></td>
-	</tr>
-	<tr>
-		  <td>부서</td>
-		  <td><input type="text" id="dept_name" name="dept_name" value="${object.dept_name}" /></td>
-	</tr>
-	<tr>
-		  <td>id</td>
-		  <td><input type="text" id="id" name="id" value="${object.id}" /></td>
-	</tr>
-	<tr>
-		  <td>이름</td>
-		  <td><input type="text" id="emp_name" name="emp_name" value="${object.emp_name}" /></td>
-	</tr>
-	<tr>
-		  <td>주민번호</td>
-		  <td><input type="text" id="inhabit_num" name="inhabit_num" value="${object.inhabit_num}" /></td>
-	</tr>
-	<tr>
-		  <td>password</td>
-		  <td><input type="text" id="password" name="password" value="${object.password}" /></td>
-	</tr>
-	<tr>
-		  <td>주소</td>
-		  <td><input type="text" id="address" name="address" value="${object.address}" /></td>
-	</tr>
-	<tr>
-		  <td>권한</td>
-		  <td><input type="text" id="job_group" name="job_group" value="${object.job_group}" /></td>
-	</tr>
-	<tr>
-		  <td>최종학력</td>
-		  <td><input type="text" id="high_car" name="high_car" value="${object.high_car}" /></td>
-	</tr>
-	<tr>
-		  <td>경력</td>
-		  <td><input type="text" id="career" name="career" value="${object.career}" /></td>
-	</tr>
-	<tr>
-		  <td>경험기술</td>
-		  <td><input type="text" id="technique" name="technique" value="${object.technique}" /></td>
-	</tr>
-	<tr>
-		  <td>직급</td>
-		  <td><input type="text" id="class_posi" name="class_posi" value="${object.class_posi}" /></td>
-	</tr>
-</table>
-	  <div>
-		  <input type="submit" value="save" />
-		  <a href="./">목록</a>
-	  </div>
-  </form>
-  </div>
+<h1>
+	회원가입  
+</h1>
+
+	<form action="${pageContext.request.contextPath }/SignController/signup" method="post">	
+		<table>
+			<tr>
+				<td>아이디</td>
+				<td><input type="text" name="id"></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>비밀번호</td>
+				<td><input type="password" name="password"></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>이름</td>
+				<td><input type="text" name="emp_name"></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>주민등록번호</td>
+				<td><input type="text" name="inhabit_num" size="13"></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>부서</td>
+				<td>
+					<select name="dept_name">
+						<option value="management" selected>management
+						<option value="business">business
+						<option value="development">development
+					</select>
+				</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>주소</td>
+				<td><input type="text" name="address" size="50"></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>최종학력</td>
+				<td>
+					<select name="high_car">
+						<option value="50" selected>고등학교 졸업
+						<option value="51">대학교 졸업
+						<option value="52">대학원 졸업
+					</select>
+				</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>경력</td>
+				<td><input type="text" name="career" size="3"></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>경험한 기술</td>
+				<td><input type="text" name="technique" size="30"></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>직급</td>
+				<td><input type="text" name="class_posi" size="30"></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>권한</td>
+				<td><input type="text" name="job_group" size="30"></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><input type="submit" value="가입하기"></td>
+				<td></td>
+				<td><input type="reset" value="다시입력"></td>
+			</tr>
+		</table>
+	</form>
+<br/>
+	<a href="./">메인화면으로 돌아가기</a>
+</div>
 	  </div>
 	  </div>
 	  </div>

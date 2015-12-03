@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.delab.DBproject.dao.PMEvalMapper">
+
+    <resultMap id="pmEvalMap" type="com.delab.DBproject.dao.PMEvalVo">
+        <id     property="eval_num"    column="eval_num" />
+        <result property="project_num" column="project_num" />
+        <result property="eval_emp"       column="eval_emp" />
+        <result property="evaled_emp"       column="evaled_emp" />
+        <result property="duty_abili"       column="duty_abili" />
+        <result property="diligence"       column="diligence" />
+    </resultMap>
+
+    <select id="select" resultMap="pmEvalMap">
+        SELECT  * FROM PM_EVAL
+    </select>
+    <insert id="insert">
+         INSERT INTO PM_EVAL (project_num, eval_emp, evaled_emp, duty_abili, diligence) VALUES (
+               #{project_num}
+              , #{eval_emp}
+              , #{evaled_emp}
+              , #{duty_abili}
+              , #{diligence}
+         )
+    </insert>
+
+    <update id="update">
+         UPDATE PM_EVAL SET
+              eval_num = #{eval_num},
+              project_num = #{project_num},
+              eval_emp = #{eval_emp},
+              evaled_emp = #{evaled_emp},
+              duty_abili = #{duty_abili},
+              diligence = #{diligence}
+         WHERE eval_num = #{eval_num} LIMIT 1
+    </update>
+
+    <delete id="delete">
+         DELETE FROM PM_EVAL WHERE eval_num = #{eval_num}
+    </delete>
+
+</mapper>

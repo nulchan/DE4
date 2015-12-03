@@ -44,11 +44,13 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-3">
-				<p class="lead">Prompt Solution</p>
+				<p class="lead">Prompt Solution (${result})</p>
 				<div class="list-group">
-					<a href="custom.jsp" class="list-group-item">평가조회</a>
-					<a href="friend.jsp"	class="list-group-item">직원조회</a>
-					<a href="pm.jsp"	class="list-group-item">프로젝트조회</a>
+					<a href="login/management/customerEvallist" class="list-group-item">고객평가조회</a>
+					<a href="login/management/pmEvallist" class="list-group-item">PM평가조회</a>
+					<a href="login/management/colleagueEvallist" class="list-group-item">동료평가조회</a>
+					<a href="login/management/employeelist"	class="list-group-item">직원조회</a>
+					<a href="login/management/projectlist"	class="list-group-item">프로젝트조회</a>
 				</div>
 			</div>
 			<div class="col-md-9">

@@ -59,63 +59,73 @@
 						<div id="carousel-example-generic" class="carousel slide"
 							data-ride="carousel">
   <h1>${message}</h1>
-  <form id="form" method="post" action="./write_ok">
+  <h1>Project list</h1>
   <table border="1">
-  	<tr>
-		  <td>직원번호</td>
-		  <td><input type="text" id="emp_no" name="emp_no" value="${object.emp_no}" /></td>
-	</tr>
-	<tr>
-		  <td>부서</td>
-		  <td><input type="text" id="dept_name" name="dept_name" value="${object.dept_name}" /></td>
-	</tr>
-	<tr>
-		  <td>id</td>
-		  <td><input type="text" id="id" name="id" value="${object.id}" /></td>
-	</tr>
-	<tr>
-		  <td>이름</td>
-		  <td><input type="text" id="emp_name" name="emp_name" value="${object.emp_name}" /></td>
-	</tr>
-	<tr>
-		  <td>주민번호</td>
-		  <td><input type="text" id="inhabit_num" name="inhabit_num" value="${object.inhabit_num}" /></td>
-	</tr>
-	<tr>
-		  <td>password</td>
-		  <td><input type="text" id="password" name="password" value="${object.password}" /></td>
-	</tr>
-	<tr>
-		  <td>주소</td>
-		  <td><input type="text" id="address" name="address" value="${object.address}" /></td>
-	</tr>
-	<tr>
-		  <td>권한</td>
-		  <td><input type="text" id="job_group" name="job_group" value="${object.job_group}" /></td>
-	</tr>
-	<tr>
-		  <td>최종학력</td>
-		  <td><input type="text" id="high_car" name="high_car" value="${object.high_car}" /></td>
-	</tr>
-	<tr>
-		  <td>경력</td>
-		  <td><input type="text" id="career" name="career" value="${object.career}" /></td>
-	</tr>
-	<tr>
-		  <td>경험기술</td>
-		  <td><input type="text" id="technique" name="technique" value="${object.technique}" /></td>
-	</tr>
-	<tr>
-		  <td>직급</td>
-		  <td><input type="text" id="class_posi" name="class_posi" value="${object.class_posi}" /></td>
-	</tr>
-</table>
-	  <div>
-		  <input type="submit" value="save" />
-		  <a href="./">목록</a>
-	  </div>
-  </form>
-  </div>
+    <colgroup>
+  <col width="60"><col><col width="115"><col width="85">
+  </colgroup>
+  <thead>
+    <tr>
+      <th scope="col">프로젝트번호</th>
+      <th scope="col">관리자</th>
+      <th scope="col">프로젝트이름</th>
+      <th scope="col">시작일</th>
+      <th scope="col">종료일</th>
+      <th scope="col">발주처</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <!-- 목록이 반복될 영역 -->
+    <c:forEach var="item" items="${list}" varStatus="status">
+    <tr>
+      <td><a href="./projectlist/${item.project_num}">${item.project_num}</a></td>
+      
+      <td>${item.emp_no}</td>
+      <td>${item.project_name}</td>
+      <td>${item.pro_outset}</td>
+      <td>${item.pro_end}</td>
+      <td>${item.order_place}</td>
+    </tr>
+    </c:forEach>
+
+    </tbody>
+
+  </table>
+  <br/>
+  <br/>
+  <br/>
+  <h1>Make Project</h1>
+  <form id="formproject" method="post" action="./projectlist/write_ok">
+  <table border="1">
+    <colgroup>
+  <col width="60"><col><col width="115"><col width="85">
+  </colgroup>
+  <thead>
+    <tr>
+      <th scope="col">관리자</th>
+      <th scope="col">프로젝트이름</th>
+      <th scope="col">시작일</th>
+      <th scope="col">종료일</th>
+      <th scope="col">발주처</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <!-- 목록이 반복될 영역 -->
+    <tr>
+      <td><input type="text" id="emp_no" name="emp_no" value="${item.emp_no}"/></td>
+      <td><input type="text" id="project_name" name="project_name" value="${item.project_name}"/></td>
+      <td><input type="text" id="pro_outset" name="pro_outset" value="${item.pro_outset}"/></td>
+      <td><input type="text" id="pro_end" name="pro_end" value="${item.pro_end}"/></td>
+      <td><input type="text" id="order_place" name="order_place" value="${item.order_place}"/></td>
+    </tr>
+
+    </tbody>
+    </table>
+    <input type="submit" value="make" />
+    </form>
+   </div>
 	  </div>
 	  </div>
 	  </div>

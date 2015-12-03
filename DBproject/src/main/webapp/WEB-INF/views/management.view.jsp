@@ -47,14 +47,20 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-3">
-				<p class="lead">Prompt Solution</p>
+				<p class="lead">Prompt Solution (${result})</p>
 				<div class="list-group">
-					<a href="custom.jsp" class="list-group-item">평가조회</a>
-					<a href="friend.jsp"	class="list-group-item">직원조회</a>
-					<a href="pm.jsp"	class="list-group-item">프로젝트조회</a>
+					<a href="./customerEvallist" class="list-group-item">고객평가조회</a>
+					<a href="./pmEvallist" class="list-group-item">PM평가조회</a>
+					<a href=./colleagueEvallist class="list-group-item">동료평가조회</a>
+					<a href="./employeelist"	class="list-group-item">직원조회</a>
+					<a href="./projectlist"	class="list-group-item">프로젝트조회</a>
 				</div>
 			</div>
 			<div class="col-md-9">
+			<div class="row carousel-holder">
+					<div class="col-md-12">
+						<div id="carousel-example-generic" class="carousel slide"
+							data-ride="carousel">
 
     <script>
     function del(){
@@ -65,7 +71,7 @@
     <form id="form" name="form" method="post" action="./deleteemployee.do">
       <input type="hidden" id="emp_no" name="emp_no" value="${object.emp_no}" />
     </form>
-    <p>${object.emp_name}</p>
+    <h1>My Page</h1>
 	<table border=1> 
 	    <thead>
 	    <tr>
@@ -102,10 +108,18 @@
 	    </tr>
     </tbody>
 </table>
+    
+    </div>
+    </div>
+    
+    </div>
     <div>
-      <button type="button" onclick="del()">삭제</button>
       <a href="./write?emp_no=${object.emp_no}">수정</a>
       <a href="./">목록</a>
+    </div>
+    </div>
+    
+    </div>
     </div>
 
 				

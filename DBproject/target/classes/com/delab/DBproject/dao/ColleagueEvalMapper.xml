@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.delab.DBproject.dao.ColleagueEvalMapper">
+
+    <resultMap id="colleagueEvalMap" type="com.delab.DBproject.dao.ColleagueEvalVo">
+        <id     property="eval_num"    column="eval_num" />
+        <result property="project_num" column="project_num" />
+        <result property="eval_emp"       column="eval_emp" />
+        <result property="evaled_emp"       column="evaled_emp" />
+        <result property="communi"       column="communi" />
+        <result property="contri"       column="contri" />
+    </resultMap>
+
+    <select id="select" resultMap="colleagueEvalMap">
+        SELECT  * FROM COLLEAGUE_EVAL
+    </select>
+    <insert id="insert">
+         INSERT INTO COLLEAGUE_EVAL (project_num, eval_emp, evaled_emp, communi, contri) VALUES (
+               #{project_num}
+              , #{eval_emp}
+              , #{evaled_emp}
+              , #{communi}
+              , #{contri}
+         )
+    </insert>
+
+    <update id="update">
+         UPDATE COLLEAGUE_EVAL SET
+              eval_num = #{eval_num},
+              project_num = #{project_num},
+              eval_emp = #{eval_emp},
+              evaled_emp = #{evaled_emp},
+              communi = #{communi},
+              contri = #{contri}
+         WHERE eval_num = #{eval_num} LIMIT 1
+    </update>
+
+    <delete id="delete">
+         DELETE FROM COLLEAGUE_EVAL WHERE eval_num = #{eval_num}
+    </delete>
+
+</mapper>

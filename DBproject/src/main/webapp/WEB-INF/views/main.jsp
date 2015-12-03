@@ -40,16 +40,32 @@
 		<div class="row">
 			<div class="col-md-3">
 				<p class="lead">Prompt Solution</p>
+				<div class="list-group">
+					<a href="./sign" class="list-group-item">회원가입</a>
+				</div>
 			</div>
 			<div class="col-md-9">
 				<div class="row carousel-holder">
 					<div class="col-md-12">
 					<form name="login" method="post" action="./main/login">
-				    	아이디 : <input type="text" name="id" size="8" maxlength="8"/><p>
-				    	비밀번호 : <input type="password" name="password" size="8" maxlength="8"/><p>
-				    	<input type="submit" value="로그인"/>
-				    <input type="reset" value="취소"/>
+					<table>
+						<tr>
+				    		<td>아이디</td>
+				    		<td><input type="text" name="id" size="8" maxlength="8"/><p></td>
+				    	</tr>
+				    	<tr>
+				   			<td>비밀번호</td>
+				   			<td><input type="password" name="password" size="8" maxlength="8"/><p></td>
+				    	</tr>
+				    	<tr>
+				    		<td><input type="submit" value="로그인"/></td>
+				  			<td><input type="reset" value="취소"/></td>
+				  		</tr>
+				    </table>
+				    
 				  	</form>
+				  	
+				  	
 						
 					</div>
 				</div>

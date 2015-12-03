@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.delab.DBproject.dao.ParticipateMapper">
+
+    <resultMap id="participateMap" type="com.delab.DBproject.dao.ParticipateVo">
+        <id     property="emp_no"    column="emp_no" />
+        <result property="project_num" column="project_num" />
+        <result property="duty"       column="duty" />
+        <result property="partici_beg"       column="partici_beg" />
+        <result property="partici_end"       column="partici_end" />
+    </resultMap>
+
+    <select id="select" resultMap="participateMap">
+        SELECT  * FROM PARTICIPATE
+    </select>
+    
+    <select id="selectOne" resultMap="participateMap">
+    	SELECT * FROM PARTICIPATE
+    	WHERE project_num = #{project_num}
+    </select>
+    <insert id="insert">
+         INSERT INTO PARTICIPATE (emp_no, project_num, duty, partici_beg, partici_end) VALUES (
+               #{emp_no}
+              , #{project_num}
+              , #{duty}
+              , #{partici_beg}
+              , #{partici_end}
+         )
+    </insert>
+
+    <update id="update">
+         UPDATE PARTICIPATE SET
+              emp_no = #{emp_no},
+              project_num = #{project_num},
+              duty = #{duty},
+              partici_beg = #{partici_beg},
+              partici_end = #{partici_end}
+         WHERE emp_no = #{emp_no} LIMIT 1
+    </update>
+
+    <delete id="delete">
+         DELETE FROM PARTICIPATE WHERE emp_no = #{emp_no}
+    </delete>
+
+</mapper>

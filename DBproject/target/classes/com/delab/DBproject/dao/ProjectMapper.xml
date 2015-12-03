@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.delab.DBproject.dao.ProjectMapper">
+
+    <resultMap id="projectMap" type="com.delab.DBproject.dao.ProjectVo">
+        <id     property="project_num"    column="project_num" />
+        <result property="emp_no" column="emp_no" />
+        <result property="project_name"       column="project_name" />
+        <result property="pro_outset"       column="pro_outset" />
+        <result property="pro_end"       column="pro_end" />
+        <result property="order_place"       column="order_place" />
+    </resultMap>
+
+    <select id="select" resultMap="projectMap">
+        SELECT * FROM PROJECT
+    </select>
+
+    <select id="selectOne" resultMap="projectMap">
+        SELECT  * FROM PROJECT WHERE project_name = #{project_name}
+    </select>
+
+    <insert id="insert">
+         INSERT INTO PROJECT ( emp_no, project_name, pro_outset, pro_end, order_place) VALUES (
+                #{emp_no}
+              , #{project_name}
+              , #{pro_outset}
+              , #{pro_end}
+              , #{order_place}
+         )
+    </insert>
+
+    <update id="update">
+         UPDATE PROJECT SET
+              project_num = #{project_num},
+              emp_no = #{emp_no},
+              pro_outset = #{pro_outset},
+              pro_end = #{pro_end},
+              order_place = #{order_place}
+         WHERE project_num = #{project_num} LIMIT 1
+    </update>
+
+    <delete id="delete">
+         DELETE FROM 
+         WHERE project_num = #{project_num}
+    </delete>
+
+</mapper>

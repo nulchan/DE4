@@ -44,7 +44,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-3">
-				<p class="lead">Prompt Solution</p>
+				<p class="lead">Prompt Solution (${result})</p>
 				<div class="list-group">
 					<a href="custom.jsp" class="list-group-item">평가조회</a>
 					<a href="friend.jsp"	class="list-group-item">팀원조회</a>

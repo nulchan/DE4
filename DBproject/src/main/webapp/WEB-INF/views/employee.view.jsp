@@ -1,10 +1,7 @@
-
-
-
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html lang="en">
+<html lang="ko">
 
 <head>
 	<meta charset="utf-8">
@@ -34,7 +31,7 @@
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li><a href="./${result}">마이페이지</a></li>
+					<li><a href="./management/${result}">마이페이지</a></li>
 					<li>${result}</li>
 					
 				</ul>
@@ -47,22 +44,27 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-3">
-				<p class="lead">Prompt Solution</p>
+				<p class="lead">Prompt Solution (${result})</p>
 				<div class="list-group">
-					<a href="custom.jsp" class="list-group-item">평가조회</a>
-					<a href="friend.jsp"	class="list-group-item">직원조회</a>
-					<a href="pm.jsp"	class="list-group-item">프로젝트조회</a>
+					<a href="./management/customerEvallist" class="list-group-item">고객평가조회</a>
+					<a href="./management/pmEvallist" class="list-group-item">PM평가조회</a>
+					<a href="./management/colleagueEvallist" class="list-group-item">동료평가조회</a>
+					<a href="./management/employeelist"	class="list-group-item">직원조회</a>
+					<a href="./management/projectlist"	class="list-group-item">프로젝트조회</a>
 				</div>
 			</div>
-			<div class="col-md-9">
-
+		<div class="col-md-9">
+	<div class="row carousel-holder">
+					<div class="col-md-12">
+						<div id="carousel-example-generic" class="carousel slide"
+							data-ride="carousel">
     <script>
     function del(){
       if (confirm("삭제하시겠습니까?")) document.form.submit();
     }
     </script>
 
-    <form id="form" name="form" method="post" action="./deleteemployee.do">
+    <form id="form" name="form" method="post" action="./deleteemployee">
       <input type="hidden" id="emp_no" name="emp_no" value="${object.emp_no}" />
     </form>
     <p>${object.emp_name}</p>
@@ -102,14 +104,19 @@
 	    </tr>
     </tbody>
 </table>
-    <div>
+
+</div>
+</div>
+
+</div>
+<div>
       <button type="button" onclick="del()">삭제</button>
       <a href="./write?emp_no=${object.emp_no}">수정</a>
       <a href="./">목록</a>
     </div>
-
-				
-				
+</div>
+</div>
+</div>
 	
 	<!-- /.container -->
 	<div class="container">

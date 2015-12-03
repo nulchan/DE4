@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.delab.DBproject.dao.CustomerEvalMapper">
+
+    <resultMap id="customerEvalMap" type="com.delab.DBproject.dao.CustomerEvalVo">
+        <id     property="eval_num"    column="eval_num" />
+        <result property="project_num" column="project_num" />
+        <result property="eval_emp"       column="eval_emp" />
+        <result property="evaled_emp"       column="evaled_emp" />
+        <result property="satisfi"       column="satisfi" />
+        <result property="kindness"       column="kindness" />
+    </resultMap>
+
+    <select id="select" resultMap="customerEvalMap">
+        SELECT  * FROM CUSTOMER_EVAL
+    </select>
+    <insert id="insert">
+         INSERT INTO CUSTOMER_EVAL (project_num, eval_emp, evaled_emp, satisfi, kindness) VALUES (
+               #{project_num}
+              , #{eval_emp}
+              , #{evaled_emp}
+              , #{satisfi}
+              , #{kindness}
+         )
+    </insert>
+
+    <update id="update">
+         UPDATE CUSTOMER_EVAL SET
+              eval_num = #{eval_num},
+              project_num = #{project_num},
+              eval_emp = #{eval_emp},
+              evaled_emp = #{evaled_emp},
+              satisfi = #{satisfi},
+              kindness = #{kindness}
+         WHERE eval_num = #{eval_num} LIMIT 1
+    </update>
+
+    <delete id="delete">
+         DELETE FROM CUSTOMER_EVAL WHERE eval_num = #{eval_num}
+    </delete>
+
+</mapper>
